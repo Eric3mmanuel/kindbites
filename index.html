@@ -1,0 +1,764 @@
+ <!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>KindBites 💛</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+
+    <!-- Favicon -->
+    <link href="img\kind bites pink.png" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Playfair+Display:wght@700;900&display=swap"
+        rel="stylesheet">
+
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="lib/animate/animate.min.css" rel="stylesheet">
+    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="css/style.css" rel="stylesheet">
+
+    <script src="https://sdk.minepi.com/pi-sdk.js"></script>
+    <script>
+
+
+        Pi.init({ version: "2.0", sandbox: true });
+        //start of authenticate 
+        async function loginwithPi() {
+            const scopes = ['username'];
+            function onIncompletePaymentFound(payment) {
+                console.log("Incomplete payment:", payment);
+            }
+
+            try {
+                const auth = await
+                    Pi.authenticate(scope, onIncompletePaymentFound);
+                comsole.log("Auth result:", auth);
+
+                //Send token to backend
+                const response = await
+                    fetch("/api/verify-pi-login", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type":
+                                "application/json"
+                        },
+                        body:
+                            JSON.stringify({
+                                accessToken:
+                                    auth.accessToken
+                            })
+                    });
+
+                const data = await
+                    response.json();
+
+                if (data.success) {
+
+                    document.getElementById("user-info").innerText = "Hello" + data.user.username;
+                } else {
+
+                    document.getElementbyId("user-info").innerText = "Login failed: " + data.error;
+                }
+
+            } catch (error) {
+                console.error("Login failed:", error);
+            }
+        }
+        //end of authenticate
+
+        //start of payments
+
+    </script>
+
+</head>
+
+<body style="font-family:'Courier New', Courier, monospace;font-weight: bold;">
+    <!-- Spinner Start -->
+    <div id="spinner"
+        class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div class="spinner-border text-primary" role="status" style="width: 3rem; height: 3rem;"></div>
+    </div>
+    <!-- Spinner End -->
+
+
+    <!-- Navbar Start -->
+    <div class="container-fluid bg-white sticky-top">
+        <div class="container">
+            <nav class="navbar navbar-expand-lg bg-white navbar-light py-2 py-lg-0">
+                <a href="index.html" class="navbar-brand">
+                    <img class="img-fluid" src="img\kind bites green.png" alt="Logo"
+                        style=" border-radius:75%;object-fit: cover;">
+                </a>
+
+                 <!--pi login-->
+
+                <button onclick="loginwithPi()" style="left: 50%;margin-left: 50%;">Login with Pi </button>
+                <p id="user-info"></p>
+
+                <button type="button" class="navbar-toggler ms-auto me-0" data-bs-toggle="collapse"
+                    data-bs-target="#navbarCollapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarCollapse">
+                    <div class="navbar-nav ms-auto">
+                        <a href="index.html" class="nav-item nav-link active">Home</a>
+                        <a href="about.html" class="nav-item nav-link">About</a>
+                        <a href="product.html" class="nav-item nav-link">Specials</a>
+                        <a href="store.html" class="nav-item nav-link">Cuisines</a>
+
+                        <a href="contact.html" class="nav-item nav-link">Contact</a>
+                    </div>
+                    <div class="border-start ps-4 d-none d-lg-block">
+                        <button type="button" class="btn btn-sm p-0"><i class="fa fa-search"></i></button>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+    <!-- Navbar End -->
+
+
+    <!-- Carousel Start -->
+    <div class="container-fluid px-0 mb-5">
+        <div id="header-carousel" class="carousel slide carousel-fade" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img class="w-100" src="img\kind bites pink.png" alt="Image"
+                        style="background: linear-gradient(rgba(250, 28, 198, 0.7), rgba(155, 246, 85, 0.7));">
+                    <div class="carousel-caption">
+                        <div class="container">
+                            <div class="row justify-content-center">
+                                <div class="col-lg-7 text-center">
+                                    <p class="fs-4 text-white animated zoomIn">Welcome to <strong
+                                            style="color: rgb(24, 240, 24);">Kind Bites 💛 </strong></p>
+                                    <h1 class="display-1 text-dark mb-4 animated zoomIn" style="font-size: 20px;">
+                                        Spreading Kindness
+                                        <br>🫂<br>One plate at a time
+                                    </h1>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img class="w-100" src="img\kind bites africa (1).png" alt="Image">
+                    <div class="carousel-caption">
+                        <div class="container">
+                            <div class="row justify-content-center">
+                                <div class="col-lg-7 text-center">
+                                    <p class="fs-4 text-white animated zoomIn">Welcome to <strong
+                                            style="color: rgb(244, 7, 157);">Kind Bites 💛 </strong></p>
+                                    <h1 class="display-1 text-dark mb-4 animated zoomIn" style="font-size: 20px;">
+                                        Spreading Kindness
+                                        <br>🫂<br>One plate at a time
+                                    </h1>
+                                    <a href="" class="btn btn-light rounded-pill py-3 px-5 animated zoomIn"
+                                        style="size:30px ;">Love and light</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#header-carousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#header-carousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+    </div>
+    <!-- Carousel End -->
+
+
+    <!-- About Start -->
+    <div class="container-xxl py-5">
+        <div class="container">
+            <div class="row g-5">
+                <div class="col-lg-6">
+                    <div class="row g-3">
+                        <div class="col-6 text-end">
+                            <img class="img-fluid bg-white w-100 mb-3 wow fadeIn" data-wow-delay="0.1s"
+                                src="img\mac  n cheese.jpeg" alt="">
+                            <img class="img-fluid bg-white w-50 wow fadeIn" data-wow-delay="0.2s"
+                                src="img\Milkshakes.jpeg" alt="">
+                        </div>
+                        <div class="col-6">
+                            <img class="img-fluid bg-white w-50 mb-3 wow fadeIn" data-wow-delay="0.3s"
+                                src="img\Hot chocolate.jpeg" alt="">
+                            <img class="img-fluid bg-white w-100 wow fadeIn" data-wow-delay="0.4s"
+                                src="img\Chapo beans.jpeg" alt="">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 wow fadeIn" data-wow-delay="0.5s">
+                    <div class="section-title">
+                        <p class="fs-5 fw-medium fst-italic text-primary">About Us</p>
+                        <h1 class="display-6" style="color: rgb(244, 7, 224) ;">Kind Bites</h1>
+                        <h2 small style="font-size: 15px;">Spreading Kindness
+                            <br>🫂<br>One plate at a time
+                        </h2>
+                    </div>
+                    <div class="row g-3 mb-4">
+                        <div class="col-sm-4">
+                            <img class="img-fluid bg-white w-100" src="img\kind bites pink.png" alt="">
+                        </div>
+                        <div class="col-sm-8">
+                            <h5>Hello Pioneers and citizens of Earth 😊 </h5>
+                            <p class="mb-0">Welcome to Kind Bites .<BR> Spreading kindess 🫂 one plate at a time ,one pi
+                                at a time .<br>
+                                At<p style="color: rgb(241, 13, 241);"><b>Kind Bites</b></p> we believe food is more than
+                            nourishment - it's Love
+                            ,joy and connection .Our mission is simple ,to spread kindness ,one plate at a time,one pi
+                            at a time.
+                            We believe that since pi is now part of our world , no one should ever again , sleep
+                            ,without having a decent meal .. the most
+                            basic of all human needs .
+                            Since pi network's project's launch , a lot of hope and good energy has been generated , and
+                            people from all over the globe ,
+                            have restored their faith in the human race once again , through pi , which has given
+                            everyone , either rich or poor ,
+                            regardless of race , gender , religion , physical status ..regardless of anything that has
+                            for centuries been dividing the people
+                            , a chance to begin a new , promoting fairness amongst the people of the earth.
+
+                            And thus ,at Kind Bites , we shall use Pi , as a tool to spread love and to make the world a
+                            better place .(We would like to take this chance to thank
+                            everyone involved in Pi for a good cause , we appreciate you and love you.Be blessed
+                            abundantly)
+
+                            
+
+
+                            <br></p>
+                        </div>
+                    </div>
+                    <div class="border-top mb-4"></div>
+                    <div class="row g-3">
+                        <div class="col-sm-8">
+                            <h5>How we do this ,you ask ,,?</h5>
+                            <p class="mb-0">Well..<br>
+                                Here's how it works
+                            For every pioneer who buys a meal or a drink using pi and shares a meal with their loved
+                            ones - whether it's a friend ,
+                            a spouse , a sibling , a parents or even a stranger -
+                            <b>KindBites donates a matching meal and drink to someone in need </b>
+                            <br>
+                            This could be a homeless person , an orphaned child or someone who has lost hope .Along with
+                            their meal , they also receive a beautiful free Kind Bites t-shirt ,with the Pi
+                            logo to help spread awareness in people about pi,as well as carrying a message of hope such
+                            as "Spread Love " - a small reminder that they are seen ,valued and cared for .
+                                <br>
+                                ➡️If a pioneer(meaning anyone who pays with pi) shares one plate , one plate is donated
+                                .
+                                <br>
+                                ➡️If a pioneer shares ten plates , five plates are donated ,by KindBites , to the needy
+                                .
+                                <br>
+                                <br>
+                                Every bite that's shared creates a ripple of kindness that reaches beyond your table -
+                                into the hearts of those who need it most .
+                                Together ,we can make the world warmer ,kinder and more beautiful , through Pi .
+
+                                Always remember that
+                            <p style="color: rgb(5, 214, 15);">Kindness doesn't cost a dime 🫂, or a pi in our case 🤗💙 </p>
+
+                        </div>
+                        <div class="col-sm-4">
+                            <img class="img-fluid bg-white w-100" src="img\Love fruits.webp" alt="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- About End -->
+
+
+    <!-- Products Start -->
+    <div class="container-fluid product py-5 my-5">
+        <div class="container py-5">
+            <div class="section-title text-center mx-auto wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
+                <p class="fs-5 fw-medium fst-italic text-primary" style="color:black;">Why walk with us <br> at </p>
+                <h1 class="display-6" style="color:rgb(248, 8, 216);">Kind Bites</h1>
+            </div>
+            <div class="owl-carousel product-carousel wow fadeInUp" data-wow-delay="0.5s">
+                <a href="" class="d-block product-item rounded">
+                    <img src="img\Vision.png" alt="">
+                    <div class="bg-white shadow-sm text-center p-4 position-relative mt-n5 mx-4">
+                        <h4 class="text-primary">Our Vision ✨</h4>
+                        <span class="text-body">A world where every shared meal becomes a seed of kindness ,nourishing not 
+                            only bodies ,but also hearts with love and hope ,spreading ripples of kindness to all of humanity </span>
+                    </div>
+                </a>
+                <a href="" class="d-block product-item rounded">
+                    <img src="img\Mission.png" alt="">
+                    <div class="bg-white shadow-sm text-center p-4 position-relative mt-n5 mx-4">
+                        <h4 class="text-primary">Our Mission 💜</h4>
+                        <span class="text-body">To spread love and compassion through food by connecting people in joyful sharing 
+                            and ensuring that every meal shared creates a meal of hope for someone in need. </span>
+                    </div>
+                </a>
+                <a href="" class="d-block product-item rounded">
+                    <img src="img\Goal.png" alt="">
+                    <div class="bg-white shadow-sm text-center p-4 position-relative mt-n5 mx-4">
+                        <h4 class="text-primary">Our Goal 🌱</h4>
+                        <span class="text-body">To build a global movement where kindness multiplies -one plate ,one drink,one heart 
+                            at a time - so that no one feels forgotten and everyone experiences the warmth of being cared for</span>
+                    </div>
+                </a>
+                <a href="" class="d-block product-item rounded">
+                    <img src="img\Purpose.png" alt="">
+                    <div class="bg-white shadow-sm text-center p-4 position-relative mt-n5 mx-4">
+                        <h4 class="text-primary">Our Purpose 🌸</h4>
+                        <span class="text-body">Kind Bites exists to transform simple acts of eating and sharing into a ripple of kindness
+                            that feeds the hungry , uplifts the hopeless and reminds the world that love is the most nourishing ingredient 
+                        of all </span>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+    <!-- Products End -->
+
+
+    <!-- Article Start -->
+    <div class="container-xxl py-5">
+        <div class="container">
+            <div class="row g-5">
+                <div class="col-lg-5 wow fadeIn" data-wow-delay="0.1s">
+                    <img class="img-fluid" src="img\Menu.png" alt="">
+                </div>
+                <div class="col-lg-6 wow fadeIn" data-wow-delay="0.5s">
+                    <div class="section-title">
+                        <p class="fs-5 fw-medium fst-italic text-primary">Polite Note - We are Vegetarian and
+                            Pescatarian</p>
+                        <h1 class="display-6">Our MENU </h1>
+                    </div>
+                    <p class="mb-4">Our Menu comprises of a variety of delicacies, mostly natural and vegetarian .We believe no harm should be done to other living
+                        creatures just to satisfy the human stomach yet we are surrounded by food in form of plant life and animal produce like milk and eggs </p>
+                    <p class="mb-4">Also note that all foods on our menu are priced at very affordable prices in pi ( The most expensive being 0.01 pi) meaning 
+                        that the food is affordable to all pioneers irregardless of their pi balances. </p>
+                    <a class="btn btn-primary rounded-pill py-3 px-5">Karibuni/Welcome</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Article End -->
+
+
+    <!-- Video Start -->
+    <div class="container-fluid video my-5">
+        <div class="container">
+            <div class="row g-0">
+                <div class="col-lg-6 py-5 wow fadeIn" data-wow-delay="0.1s">
+                    <div class="py-5">
+                        <h1 class="display-6 mb-4">
+                            Mmmm...what's that yummy smell😋..<br>it's<br> <span class="text-white">Kind
+                                Bites</span></h1>
+                        <h5 class="fw-normal lh-base fst-italic  mb-5" style="color: rgb(88, 172, 5);">Welcome one ,welcome all ! When you
+                            decide to walk this journey with us , here are some delicacies you'll find ....</h5>
+                        <div class="row g-4 mb-5">
+                            <div class="col-sm-6">
+                                <div class="d-flex align-items-center">
+                                    <div class="flex-shrink-0 btn-lg-square bg-white text-primary rounded-circle me-3">
+                                        <i class="fa fa-check"></i>
+                                    </div>
+                                    <span class="text-dark">Delightful <b>appetizers</b> ( Starters ) to awaken the
+                                        apetite
+                                        ..light and small such as soups,salads,finger foods(veg samosas,spring rolls
+                                        etc) </span>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="d-flex align-items-center">
+                                    <div class="flex-shrink-0 btn-lg-square bg-white text-primary rounded-circle me-3">
+                                        <i class="fa fa-check"></i>
+                                    </div>
+                                    <span class="text-dark">Light dishes for those who seek to increase their appetite
+                                        or reduce weight e.g Pasta ,special vegetable dishes etc.
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="d-flex align-items-center">
+                                    <div class="flex-shrink-0 btn-lg-square bg-white text-primary rounded-circle me-3">
+                                        <i class="fa fa-check"></i>
+                                    </div>
+                                    <span class="text-dark">Full main course meals that light up your taste buds and for
+                                        sure
+                                        ,fill your bellies (menu is above👆)
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="d-flex align-items-center">
+                                    <div class="flex-shrink-0 btn-lg-square bg-white text-primary rounded-circle me-3">
+                                        <i class="fa fa-check"></i>
+                                    </div>
+                                    <span class="text-dark">Side dishes to compliment your meal to your liking e.g fresh
+                                        kachumbari, curry ,steamed vegies ..anything you want wired to your desire.
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="d-flex align-items-center">
+                                    <div class="flex-shrink-0 btn-lg-square bg-white text-primary rounded-circle me-3">
+                                        <i class="fa fa-check"></i>
+                                    </div>
+                                    <span class="text-dark">Tasty Desserts(sweets) such as cakes , pastries,ice cream
+                                        ,custard ,pudding ,fruit slices etc.
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="d-flex align-items-center">
+                                    <div class="flex-shrink-0 btn-lg-square bg-white text-primary rounded-circle me-3">
+                                        <i class="fa fa-check"></i>
+                                    </div>
+                                    <span class="text-dark">Our special cheese course tailored towards giving our
+                                        clients
+                                        a variety of cheese to explore e.g mozarella , cream cheese ,butter and slice
+                                        cheese.
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="d-flex align-items-center">
+                                    <div class="flex-shrink-0 btn-lg-square bg-white text-primary rounded-circle me-3">
+                                        <i class="fa fa-check"></i>
+                                    </div>
+                                    <span class="text-dark">Healthy Drinks/beverages o nourish you and quench your
+                                        thirst
+                                        such a s fresh fruit juices and smoothies ,tea , coffee e.t.c
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <a class="btn btn-light rounded-pill py-3 px-5" href="product.html">Explore More</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- Video End -->
+
+
+    <!-- Video Modal Start -->
+
+
+    <!-- Video Modal End -->
+
+
+    <!-- Store Start -->
+    <div class="container-xxl py-5">
+        <div class="container">
+            <div class="section-title text-center mx-auto wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
+                <p class="fs-5 fw-medium fst-italic text-primary">Our Cuisines</p>
+                <h1 class="display-6">Want to stay healthy ,be well fed and still spread kindness 🫂 Choose <br>
+                    <span style="color:rgb(244, 7, 157) ;">Kind Bites</span>
+                </h1>
+            </div>
+            <div class="row g-4">
+                <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="store-item position-relative text-center">
+                        <img class="img-fluid" src="img\Ugali mayai.jpeg" alt="">
+                        <div class="p-4">
+                            <div class="text-center mb-3">
+                                <small class="fa fa-star text-primary"></small>
+                                <small class="fa fa-star text-primary"></small>
+                                <small class="fa fa-star text-primary"></small>
+                                <small class="fa fa-star text-primary"></small>
+                                <small class="fa fa-star text-primary"></small>
+                            </div>
+                            <h4 class="mb-3">Ugali ,vegies and eggs</h4>
+                            <p>Since KindBites originates from Kenya ,the most beloved meal from Kenya is Ugali 
+                                ,which is rich in nutrients and flavor.Pioneers from all over the world can now
+                                have a taste of ugali ,with whichever accompaniment they would like.
+                                If its ugali with chicken ,fish ,kales , milk...anything goes great with Ugali 
+                            </p>
+                            <h4 class="text-primary">0.005 pi (per plate) </h4>
+                        </div>
+                        <div class="store-overlay">
+
+                            <button onclick="buyProduct('Cheese Pasta')"
+                                class="btn btn-dark rounded-pill py-2 px-4 m-2">Feed with
+                                Pi<i class="fa fa-cart-plus ms-2"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
+                    <div class="store-item position-relative text-center">
+                        <img class="img-fluid" src="img\Fruit smoothie.jpeg" alt="">
+                        <div class="p-4">
+                            <div class="text-center mb-3">
+                                <small class="fa fa-star text-primary"></small>
+                                <small class="fa fa-star text-primary"></small>
+                                <small class="fa fa-star text-primary"></small>
+                                <small class="fa fa-star text-primary"></small>
+                                <small class="fa fa-star text-primary"></small>
+                            </div>
+                            <h4 class="mb-3">Fresh Fruit Smoothies</h4>
+                            <p>Stay hydrated and raise your energy levels with fresh fruit smoothies ,prepared from farm fresh product.
+                                At KindBites we are a 
+                            </p>
+                            <h4 class="text-primary">0.005 pi (per plate) </h4>
+                        </div>
+                        <div class="store-overlay">
+
+                            <button onclick="buyProduct('Cheese Pasta')"
+                                class="btn btn-dark rounded-pill py-2 px-4 m-2">Feed with
+                                Pi<i class="fa fa-cart-plus ms-2"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
+                    <div class="store-item position-relative text-center">
+                        <img class="img-fluid" src="img\Spaghetti.jpeg" alt="">
+                        <div class="p-4">
+                            <div class="text-center mb-3">
+                                <small class="fa fa-star text-primary"></small>
+                                <small class="fa fa-star text-primary"></small>
+                                <small class="fa fa-star text-primary"></small>
+                                <small class="fa fa-star text-primary"></small>
+                                <small class="fa fa-star text-primary"></small>
+                            </div>
+                            <h4 class="mb-3">Pilau rice or Biryani</h4>
+                            <p>Improve your meditation sessions with a portable comfy companion .These meditation
+                                cushions are tailor made just to give you an enhanced and comdortable meditation session
+                                ,whether its balancing chakras ,breathwork etc. , we gatchu!</p>
+                            <h4 class="text-primary">0.008 pi (per plate)</h4>
+                        </div>
+                        <div class="store-overlay">
+
+                            <button onclick="buyProduct('Cheese Pasta')"
+                                class="btn btn-dark rounded-pill py-2 px-4 m-2">Feed with
+                                Pi<i class="fa fa-cart-plus ms-2"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 text-center wow fadeInUp" data-wow-delay="0.1s">
+                    <a href="store.html" class="btn btn-primary rounded-pill py-3 px-5">View More Cuisines</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Store End -->
+
+
+    <!-- Testimonial Start -->
+    <div class="container-fluid testimonial py-5 my-5">
+        <div class="container py-5">
+            <div class="section-title text-center mx-auto wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
+                <p class="fs-5 fw-medium fst-italic text-white">Testimonials</p>
+                <h1 class="display-6">What local pioneers say about us</h1>
+            </div>
+            <div class="owl-carousel testimonial-carousel wow fadeInUp" data-wow-delay="0.5s">
+                <div class="testimonial-item p-4 p-lg-5">
+                    <p class="mb-4">Kind Bites really brought back good energy to a world that was slowly turning dark and evil ,
+                        proving that humanity still exists and that love conquers evil.<br> Thank you @K.B
+                    </p>
+                    <div class="d-flex align-items-center justify-content-center">
+                        <img class="img-fluid flex-shrink-0" src="img\test1.jpeg" alt="">
+                        <div class="text-start ms-3">
+                            <h5>3ric3mmanu3l</h5>
+                            <span class="text-primary">Web3 developer / Businessperson / Artist</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-item p-4 p-lg-5">
+                    <p class="mb-4">Im so happy and delighted to have paid for my first meal using Pi cryptocurrency
+                        .Truly ,this is a new world of technology.
+                        Thank you kindbites ,thank you Pi ..thank you pioneers!
+                    </p>
+                    <div class="d-flex align-items-center justify-content-center">
+                        <img class="img-fluid flex-shrink-0" src="img\test2.jpg" alt="">
+                        <div class="text-start ms-3">
+                            <h5>Clara Kanyi</h5>
+                            <span class="text-primary">Stylist / Interior designer </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-item p-4 p-lg-5">
+                    <p class="mb-4">Wow ! Wow ! Wow ! Just Wow 🙌<br>KindBites has really helped 
+                        out alot of people in my area .I just love the message portrayed in their actions- 
+                        Kindness doesnt cost a pi 🤗
+                    </p>
+                    <div class="d-flex align-items-center justify-content-center">
+                        <img class="img-fluid flex-shrink-0" src="img\test3.jpg" alt="">
+                        <div class="text-start ms-3">
+                            <h5>Rita Venus</h5>
+                            <span class="text-primary">Musician / Journalist / Environmentalist</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Testimonial End -->
+
+
+    <!-- Contact Start -->
+    <div class="container-xxl contact py-5">
+        <div class="container">
+            <div class="section-title text-center mx-auto wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
+                <p class="fs-5 fw-medium fst-italic text-primary">Contact Us</p>
+                <h1 class="display-6">Feel free to reach out to us </h1>
+            </div>
+            <div class="row justify-content-center wow fadeInUp" data-wow-delay="0.1s">
+                <div class="col-lg-8">
+                    <p class="text-center mb-5">At kindbites , you are welcomed ,you are loved</p>
+                    <div class="row g-5">
+                        <div class="col-md-4 text-center wow fadeInUp" data-wow-delay="0.3s">
+                            <div class="btn-square mx-auto mb-3">
+                                <i class="fa fa-envelope fa-2x text-white"></i>
+                            </div>
+                            <p class="mb-2">kindbites@gmail.com</p>
+                            <p class="mb-0">support@kindbites.com</p>
+                        </div>
+                        <div class="col-md-4 text-center wow fadeInUp" data-wow-delay="0.4s">
+                            <div class="btn-square mx-auto mb-3">
+                                <i class="fa fa-phone fa-2x text-white"></i>
+                            </div>
+                            <p class="mb-2">+254740343513</p>
+                            
+                        </div>
+                        <div class="col-md-4 text-center wow fadeInUp" data-wow-delay="0.5s">
+                            <div class="btn-square mx-auto mb-3">
+                                <i class="fa fa-map-marker-alt fa-2x text-white"></i>
+                            </div>
+                            <p class="mb-2"></p>
+                            <p class="mb-0">Nairobi ,Kenya</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Contact Start -->
+
+
+    <!-- Footer Start -->
+    <div class="container-fluid bg-dark footer mt-5 py-5 wow fadeIn" data-wow-delay="0.1s">
+        <div class="container py-5">
+            <div class="row g-5">
+                <div class="col-lg-3 col-md-6">
+                    <h4 class="text-primary mb-4">Our Office</h4>
+                    <p class="mb-2"><i class="fa fa-map-marker-alt text-primary me-3"></i>Nairobi , Kenya</p>
+                    <p class="mb-2"><i class="fa fa-phone-alt text-primary me-3"></i>+254740343513</p>
+                    <p class="mb-2"><i class="fa fa-envelope text-primary me-3"></i>kindbites@gmail.com</p>
+                    <div class="d-flex pt-3">
+                        <a class="btn btn-square btn-primary rounded-circle me-2" href=""><i
+                                class="fab fa-twitter"></i></a>
+                        <a class="btn btn-square btn-primary rounded-circle me-2" href=""><i
+                                class="fab fa-facebook-f"></i></a>
+                        <a class="btn btn-square btn-primary rounded-circle me-2" href=""><i
+                                class="fab fa-youtube"></i></a>
+                        <a class="btn btn-square btn-primary rounded-circle me-2" href=""><i
+                                class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h4 class="text-primary mb-4">Quick Links</h4>
+                    <a class="btn btn-link" href="about.html">About Us</a>
+                    <a class="btn btn-link" href="contact.html">Contact Us</a>
+                    <a class="btn btn-link" href="product.html">Our products</a>
+                    <a class="btn btn-link" href="t">Terms & Condition</a>
+                    <a class="btn btn-link" href="contact.html">Support</a>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h4 class="text-primary mb-4">Business Hours</h4>
+                    <p class="mb-1">Monday - Friday</p>
+                    <h6 class="text-light">09:00 am - 07:00 pm</h6>
+                    <p class="mb-1">Saturday</p>
+                    <h6 class="text-light">09:00 am - 8:00 pm</h6>
+                    <p class="mb-1">Sunday</p>
+                    <h6 class="text-light">Closed</h6>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h4 class="text-primary mb-4">NAMASTE </h4>
+                    <p>Thank you for visiting Kind Bites , you are welcomed , you are loved.</p>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Footer End -->
+
+
+    <!-- Copyright Start -->
+    <div class="container-fluid copyright py-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                    &copy;2025 <a class="fw-medium" href="#">Kind Bites</a>, All Right Reserved.
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
+                    Designed with 💜 for Pi Network, By <a class="fw-medium" href="https://3ric3mmanu3l.vercel.app">3ric3mmanu3l</a>
+                    <br>
+                    <br>
+                    &copy; <span>Ascending - Working for the Light in Darkness 💚</span>
+                    <br>
+                    <br>
+                    <span style="color:#252525 ;">Designed By <a href="https://htmlcodex.com"
+                            style="color:#252525;">HTML Codex</a></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Copyright End -->
+
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-lg btn-primary btn-lg-square rounded-circle back-to-top"><i
+            class="bi bi-arrow-up"></i></a>
+
+
+    <!-- JavaScript Libraries -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="lib/wow/wow.min.js"></script>
+    <script src="lib/easing/easing.min.js"></script>
+    <script src="lib/waypoints/waypoints.min.js"></script>
+    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="js/main.js"></script>
+
+    <!--Start of Tawk.to Script-->
+    <script type="text/javascript">
+        var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
+        (function () {
+            var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script")[0];
+            s1.async = true;
+            s1.src = 'https://embed.tawk.to/680a959d7161c519104da1a1/1ipklgspj';
+            s1.charset = 'UTF-8';
+            s1.setAttribute('crossorigin', '*');
+            s0.parentNode.insertBefore(s1, s0);
+        })();
+    </script>
+    <!--End of Tawk.to Script-->
+
+</body>
+
+</html>
